@@ -1,0 +1,360 @@
+{
+  "intents": [
+    {
+      "intent": "Product_information",
+      "examples": [
+        {
+          "text": "wireless card"
+        },
+        {
+          "text": "base frame"
+        },
+        {
+          "text": "power adapter port"
+        },
+        {
+          "text": "system board"
+        },
+        {
+          "text": "palm rest"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Greetings",
+      "examples": [
+        {
+          "text": "good eve"
+        },
+        {
+          "text": "good evening"
+        },
+        {
+          "text": "hi"
+        },
+        {
+          "text": "hello"
+        },
+        {
+          "text": "good morning"
+        },
+        {
+          "text": "good afternoon"
+        },
+        {
+          "text": "heya"
+        },
+        {
+          "text": "thank you"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "Greetings",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "heya",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "good morning",
+          "synonyms": [
+            "gm",
+            "gud mrng"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "hi",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "good evening",
+          "synonyms": [
+            "ge",
+            "gud eve"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "thank you",
+          "synonyms": [
+            "ty",
+            "thanku"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "hello",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "webhooks": [
+    {
+      "url": "https://eu-gb.functions.cloud.ibm.com/api/v1/web/si05202000259%40smartinternz.com_dev/default/Read_smart_document.json",
+      "name": "main_webhook",
+      "headers": []
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "I didn't understand."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "Anything else",
+      "conditions": "anything_else",
+      "dialog_node": "response_8_1591699659124",
+      "previous_sibling": "response_7_1591699658339"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "\"<?$webhook_result_2.passages[0].passage_text?>\""
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "Anything else",
+      "conditions": "$webhook_result_2",
+      "dialog_node": "response_7_1591699658339"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "ERROR"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_3_1591623077276",
+      "conditions": "anything_else",
+      "dialog_node": "response_7_1591623191353",
+      "previous_sibling": "response_10_1591623187582"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "\"<?$webhook_result_1.passages[0].passage_text?>\""
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1591623077276",
+      "conditions": "$webhook_result_1",
+      "dialog_node": "response_10_1591623187582"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "good evening"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1591622569546",
+      "conditions": "@Greetings:(good evening)",
+      "dialog_node": "response_2_1591622945492",
+      "previous_sibling": "response_2_1591622930569"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "good morning"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1591622569546",
+      "conditions": "@Greetings:(good morning)",
+      "dialog_node": "response_2_1591622930569",
+      "previous_sibling": "response_9_1591622598011"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Your welcome"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1591622569546",
+      "conditions": "@Greetings:(thank you)",
+      "dialog_node": "response_2_1591622975179",
+      "previous_sibling": "response_2_1591622945492"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello! I am a DellBot. I can provide you information regarding Inspiron_15 Laptop !!!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1591622569546",
+      "conditions": "@Greetings:(hi)",
+      "dialog_node": "response_9_1591622598011"
+    },
+    {
+      "type": "standard",
+      "title": "Greetings",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Greetings || @Greetings",
+      "dialog_node": "node_7_1591622569546",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "input": "<?input_text?>"
+          },
+          "result_variable": "$webhook_result_2"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_3_1591623077276",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Ask Queries",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "input": "<?input_text?>"
+          },
+          "result_variable": "$webhook_result_1"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Product_information",
+      "dialog_node": "node_3_1591623077276",
+      "previous_sibling": "node_7_1591622569546"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "Customer Help Desk",
+  "language": "en",
+  "description": ""
+}
